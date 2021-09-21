@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, FlatList } from 'react-native';
+import { View, Text, StyleSheet, FlatList, Alert } from 'react-native';
 import Header from './components/header';
 import ListItem from './components/itemList';
 import AddItem from './components/add';
@@ -20,9 +20,22 @@ const App = ()=> {
   }
 
   const addItem = (item)=>{
-    setItem( previousItems =>{
-      return [{id:uuid.v4(),text:item},...previousItems]
-    })
+    if(!item){
+      return Alert.alert(
+        "Error",
+        "Please add an item",[
+          {
+            text:"Ok",
+            style: "cancel"
+          }
+        ],
+        { cancelable: false }
+      );
+    }else{
+      setItem( previousItems =>{
+        return [{id:uuid.v4(),text:item},...previousItems]
+      })
+    }
   }
 
   return(
