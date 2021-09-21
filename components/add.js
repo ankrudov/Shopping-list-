@@ -1,12 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import { Icon } from 'react-native-elements'
 
-const AddItem = (props)=> {
+const AddItem = ({title,addItem})=> {
+    const [list, setList] = useState('');
+
+    const onChange = (value) => setList(value);
+    
+
     return(
         <View style={styles.addItem}>
-            <TextInput style={styles.itemInput} placeholder="Add an item"/>
-            <TouchableOpacity style={styles.itemBtn}>
+            <TextInput style={styles.itemInput} placeholder="Add an item" onChangeText={onChange}/>
+            <TouchableOpacity style={styles.itemBtn} onPress={()=> addItem(list)}>
                 <Text style={styles.btnText}>
                     <Icon
                         name="plus"
