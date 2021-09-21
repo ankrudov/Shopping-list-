@@ -1,21 +1,33 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, FlatList } from 'react-native';
+import Header from './components/header';
+import ListItem from './components/itemList';
+import uuid from 'react-native-uuid'; //for unique ids
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+const App = ()=> {
+  const [items, setItem] = useState([
+    {id: uuid.v4(), text: 'Milk'},
+    {id: uuid.v4(), text: 'Almond milk'},
+    {id: uuid.v4(), text: 'Eggs'},
+    {id: uuid.v4(), text: 'Bread'},
+  ]);
+
+  const deleteItem = (id)=>{
+    setItem(previousItems=>{
+      return previousItems.filter(item=> item.id != id )
+    });
+  }
+  return(
+    <View>
+      <Header title='Shopping list'/>
+      <FlatList
+        data={items}
+        renderItem={({item})=>(
+          <ListItem item={item} deleteItem={deleteItem}/>
+        )}
+      />
     </View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
