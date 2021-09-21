@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, FlatList } from 'react-native';
 import Header from './components/header';
 import ListItem from './components/itemList';
+import AddItem from './components/add';
 import uuid from 'react-native-uuid'; //for unique ids
 
 const App = ()=> {
@@ -20,6 +21,7 @@ const App = ()=> {
   return(
     <View>
       <Header title='Shopping list'/>
+      <AddItem/>
       <FlatList
         data={items}
         renderItem={({item})=>(
